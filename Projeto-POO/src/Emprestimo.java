@@ -30,6 +30,10 @@ public class Emprestimo extends Multa {
         return dataDevolucaoReal;
     }
 
+    public LocalDate getDataEmprestimo(){
+        return dataEmprestimo;
+    }
+
     public void setDataDevolucaoReal(LocalDate dataDevolucaoReal) {
         this.dataDevolucaoReal = dataDevolucaoReal;
     }
