@@ -1,4 +1,4 @@
-import javax.swing.*;
+
 import java.time.LocalDate;
 
 public class Emprestimo extends Multa {
@@ -6,18 +6,39 @@ public class Emprestimo extends Multa {
     private Usuario usuario;
     private LocalDate dataEmprestimo;
     private LocalDate dataDevolucaoPrevista;
-    private LocalDate dataDevolucaoReal;
+    private LocalDate dataDevolucaoReal; // Esta data começa como null
 
 
-    public Emprestimo(Livro livro, Usuario user, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista, LocalDate dataDevolucaoReal){
+    public Emprestimo(Livro livro, Usuario usuario, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista) {
         this.livro = livro;
-        this.usuario = user;
+        this.usuario = usuario;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+        this.dataDevolucaoReal = null;
+    }
+
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public LocalDate getDataDevolucaoReal() {
+        return dataDevolucaoReal;
+    }
+
+    public void setDataDevolucaoReal(LocalDate dataDevolucaoReal) {
         this.dataDevolucaoReal = dataDevolucaoReal;
     }
 
-    public double calcularPagamento(double valor){
-        return valor - super.multa(this.dataDevolucaoPrevista, this.dataDevolucaoReal);
+    public double calculaPagamento() {
+
+        if (this.dataDevolucaoReal != null) {
+            return super.multa(this.dataDevolucaoPrevista, this.dataDevolucaoReal) + this.livro.getPrecoEmprestimo();
+        }
+        return 0;
     }
 }
