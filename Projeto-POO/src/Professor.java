@@ -1,8 +1,9 @@
 public class Professor extends Usuario{
     private String departamento;
 
-    public Professor(int id, String nome, String departamento){
-        super(id, nome);
+
+    public Professor(String nome, String departamento){
+        super(nome);
         this.departamento = departamento;
     }
 

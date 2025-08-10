@@ -45,4 +45,8 @@ public class Emprestimo extends Multa {
         }
         return 0;
     }
+
+    public LocalDate getDataDevolucaoPrevista() {
+        return dataDevolucaoPrevista;
+    }
 }

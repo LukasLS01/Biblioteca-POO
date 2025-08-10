@@ -27,6 +27,7 @@ public class Livro implements Emprestavel{
     public void emprestar() {
         this.emprestado = true;
     }
+    
 
     public double getPrecoEmprestimo() {
         return precoEmprestimo;
