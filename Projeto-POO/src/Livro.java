@@ -2,6 +2,14 @@ public class Livro implements Emprestavel{
     private String titulo;
     private String autor;
     private boolean emprestado;
+    private double precoEmprestimo;
+
+    public Livro (String titulo,String autor, boolean emprestado, double precoEmprestimo) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.emprestado = emprestado;
+        this.precoEmprestimo = precoEmprestimo;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -20,8 +28,17 @@ public class Livro implements Emprestavel{
         this.emprestado = true;
     }
 
+    public double getPrecoEmprestimo() {
+        return precoEmprestimo;
+    }
+
+    public void setPrecoEmprestimo(double precoEmprestimo) {
+        this.precoEmprestimo = precoEmprestimo;
+    }
+
     @Override
     public void devolver() {
         this.emprestado = false;
     }
+    
 }
