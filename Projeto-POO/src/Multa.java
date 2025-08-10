@@ -1,17 +1,25 @@
-public class Multa extends Emprestimo {
-    private double multaDiaria;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
-    public boolean IsAtrasado () {
-        return dataDevolucaoPrevista < dataDevolucaoReal;
+public class Multa{
+    private double multaDiaria = 20.00;
+
+    public boolean IsAtrasado (LocalDate dataDevolucaoPrevista, LocalDate dataDevolucaoReal) {
+        return dataDevolucaoReal.isAfter(dataDevolucaoPrevista);
     }
 
     public double getMultaDiaria() {
         return multaDiaria;
     }
 
-    private double multa () {
-        if (IsAtrasado()) {
-            return multaDiaria*(dataDevolucaoReal-dataDevolucaoPrevista);
+    public void setMultaDiaria(double multaDiaria) {
+        this.multaDiaria = multaDiaria;
+    }
+
+    protected double multa (LocalDate dataDevolucaoPrevista, LocalDate dataDevolucaoReal) {
+        if (IsAtrasado(dataDevolucaoPrevista, dataDevolucaoReal)) {
+            long diasAtraso = ChronoUnit.DAYS.between(dataDevolucaoPrevista, dataDevolucaoReal);
+            return multaDiaria*diasAtraso;
         }
         return 0;
     }
