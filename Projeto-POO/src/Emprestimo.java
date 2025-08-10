@@ -9,10 +9,10 @@ public class Emprestimo extends Multa {
     private LocalDate dataDevolucaoReal; // Esta data começa como null
 
 
-    public Emprestimo(Livro livro, Usuario usuario, LocalDate dataEmprestimo, LocalDate dataDevolucaoPrevista) {
+    public Emprestimo(Livro livro, Usuario usuario, LocalDate dataDevolucaoPrevista) {
         this.livro = livro;
         this.usuario = usuario;
-        this.dataEmprestimo = dataEmprestimo;
+        this.dataEmprestimo = LocalDate.now();
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
         this.dataDevolucaoReal = null;
     }
