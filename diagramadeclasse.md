@@ -57,7 +57,6 @@ classDiagram
     class Multa {
         -multaDiaria : double
         +IsAtrasado(dataDevolucaoPrevista : LocalDate, dataDevolucaoReal : LocalDate) : boolean
-        #multa(dataDevolucaoPrevista : LocalDate, dataDevolucaoReal : LocalDate) : double
     }
 
     Usuario <|-- Professor
