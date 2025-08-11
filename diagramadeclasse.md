@@ -1,63 +1,74 @@
 ```mermaid
 classDiagram
     class Biblioteca {
-        -List~Livro~ acervo
-        -List~Usuario~ usuarios
-        -List~Emprestimo~ emprestimos
-        +cadastrarLivro(Livro livro)
-        +cadastrarUsuario(Usuario usuario)
-        +realizarEmprestimo(Livro livro, Usuario usuario)
-        +registrarDevolucao(Emprestimo emprestimo)
-        +gerarRelatorioMaisEmprestados()
-    }
-    class Livro {
-        -String titulo
-        -String autor
-        -String isbn
-        -boolean emprestado
-        +getTitulo()
-        +isEmprestado()
-        +setEmprestado(boolean status)
-        +emprestar()
-        +devolver()
-    }
-    class Usuario {
-        <<Abstract>>
-        -String nome
-        -int id
-        +getNome()
-    }
-    class Estudante {
-        +String matricula
-    }
-    class Professor {
-        +String departamento
-    }
-    class Emprestimo {
-        -Livro livro
-        -Usuario usuario
-        -LocalDate dataEmprestimo
-        -LocalDate dataDevolucaoPrevista
-        -LocalDate dataDevolucaoReal
-        +calcularMulta()
-        +calcularPagamento()
-    }
-    class Emprestavel{
-        <<interface>>
-        +emprestar()
-        +devolver()
-    }
-    class Pagavel{
-        <<interface>>
-        +calcularPagamento()
+        -livros : List<Livro>
+        -usuarios : List<Usuario>
+        -emprestimos : List<Emprestimo>
+        +cadastrarLivro(livro : Livro) : void
+        +cadastrarAluno(estudante : Estudante) : void
+        +cadastrarProfessor(professor : Professor) : void
+        +realizarEmprestimo(titulo : String, idUsuario : int) : void
+        +registrarDevolucao(titulo : String) : void
+        +listarLivrosCadastrados() : void
+        +listarUsuariosCadastrados() : void
     }
 
-    Biblioteca "1" -- "0..*" Livro : contém
-    Biblioteca "1" -- "0..*" Usuario : gerencia
-    Biblioteca "1" -- "0..*" Emprestimo : registra
-    Emprestimo "1" -- "1" Livro
-    Emprestimo "1" -- "1" Usuario
-    Usuario <|-- Estudante
+    class Usuario {
+        <<Abstract>>
+        -id : int
+        -nome : String
+        +getNome() : String
+        +getId() : int
+    }
+
+    class Professor {
+        -departamento : String
+        +getDepartamento() : String
+    }
+
+    class Estudante {
+        -matricula : String
+        +getMatricula() : String
+    }
+
+    class Livro {
+        -titulo : String
+        -autor : String
+        -emprestado : boolean
+        +emprestar() : void
+        +devolver() : void
+    }
+
+    class Emprestavel {
+        <<interface>>
+        +emprestar() : void
+        +devolver() : void
+    }
+
+    class Emprestimo {
+        -livro : Livro
+        -usuario : Usuario
+        -dataEmprestimo : LocalDate
+        -dataDevolucaoPrevista : LocalDate
+        -dataDevolucaoReal : LocalDate
+        +calculaPagamento() : double
+    }
+
+    class Multa {
+        -multaDiaria : double
+        +IsAtrasado(dataDevolucaoPrevista : LocalDate, dataDevolucaoReal : LocalDate) : boolean
+        #multa(dataDevolucaoPrevista : LocalDate, dataDevolucaoReal : LocalDate) : double
+    }
+
     Usuario <|-- Professor
+    Usuario <|-- Estudante
+    Multa <|-- Emprestimo
+
+
     Livro ..|> Emprestavel
-    Emprestimo ..|> Pagavel
+
+    Emprestimo "1" --o "1" Livro
+    Emprestimo "1" --o "1" Usuario
+    Biblioteca o-- Livro
+    Biblioteca o-- Usuario
+    Biblioteca o-- Emprestimo
